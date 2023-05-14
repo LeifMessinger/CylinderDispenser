@@ -23,7 +23,7 @@ module CylinderDispenser_Dispenser_Flue(objectDiameter, objectHeight, wallThiccn
 			CylinderDispenser_Dispenser_Flue_Fireplace([flueRadius, objectDiameter, objectHeight]);
 		}
 		if(flatBack){
-			CylinderDispenser_Dispenser_Flue_Flatback(flueRadius, height);
+			CylinderDispenser_Dispenser_Flue_FlatBack(flueRadius, height);
 		}
 	}
 }
