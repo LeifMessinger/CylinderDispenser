@@ -1,26 +1,17 @@
+use <CylinderDispenser_Dispenser_Hearth_Inner.scad>
+use <CylinderDispenser_Dispenser_Hearth_Outer.scad>
+
+//Length, width, height. The length is from the start of the the walkway to the end of the lip. Here, the length doesn't include the length from the center to the back of the cylinder. The width can be though of as the diameter of the lip.
+dimensions = [50, 15, 5];
+
+/* [OpenSCAD] [Quality] */
+$fn = 20;
+
 //"Brick" below the opening of the fireplace.
-module CylinderDispenser_Dispenser_Hearth(depth, objectDiameter, flueRadius, outerHearthLength, ejector,  backLength, printEjector, ejectorRailWall, ejectorHoleHeight){
-	module Inner(depth, flueRadius){
-		cylinder(d=(2 * flueRadius), h=depth);
-	}
-	module Outer(objectDiameter, length, depth){
-		module Walkway(objectDiameter, length, depth){
-			translate([-(objectDiameter/2), 0, 0]){
-				cube([objectDiameter, length, depth]);
-			}
-		}
-		module Lip(objectDiameter, length, depth){
-			translate([0, length, 0]){
-				cylinder(d=objectDiameter, h=depth);
-			}
-		}
-		union(){
-			Walkway(objectDiameter, length, depth);
-			Lip(objectDiameter, length, depth);
-		}
-	}
+module CylinderDispenser_Dispenser_Hearth(dimensions){
 	union(){
-		color("gray", 1) Inner(depth, flueRadius);
-		color("cyan", 1) Outer(objectDiameter, outerHearthLength, depth);
+		color("gray", 1) CylinderDispenser_Dispenser_Hearth_Inner(depth, flueRadius);
+		color("cyan", 1) CylinderDispenser_Dispenser_Hearth_Outer(objectDiameter, outerHearthLength, depth);
 	}
 }
+

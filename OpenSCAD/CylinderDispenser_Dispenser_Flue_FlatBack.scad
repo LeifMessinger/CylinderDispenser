@@ -11,4 +11,4 @@ module CylinderDispenser_Dispenser_Flue_FlatBack(diameter, height){
 		cube([diameter,	 radius, height]);
 	}
 }
-CylinderDispenser_Dispenser_FlatBack(diameter, height);
+CylinderDispenser_Dispenser_Flue_FlatBack(diameter, height);
