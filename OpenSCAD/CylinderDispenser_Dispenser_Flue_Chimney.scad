@@ -1,4 +1,4 @@
 //The whole column, excluding hearth.
-module CylinderDispenser_Dispenser_Flue_Chimney(objectDiameter, wallThiccness, height){
-	cylinder(d=(objectDiameter+(wallThiccness*2.0)), h=height);
+module CylinderDispenser_Dispenser_Flue_Chimney(flueDiameter, height){
+	cylinder(d=flueDiameter, h=height);
 }

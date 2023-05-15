@@ -1,3 +1,4 @@
+//The diameter of the flue.
 diameter = 24.0;
 height = 5;
 

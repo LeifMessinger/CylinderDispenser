@@ -5,7 +5,7 @@ dimensions = [24.0, 28.0, 15.0];
 
 //Opening at the bottom. Negative space
 module CylinderDispenser_Dispenser_Flue_Fireplace(dimensions) {
-	center([dimensions.x, 0, 0]){
+	center([0, dimensions.y, 0]){
 		cube(dimensions);
 	}
 }

@@ -8,7 +8,7 @@ height = 50;
 module CylinderDispenser_Dispenser_Flue_FlatBack(diameter, height){
 	radius = diameter / 2.0;
 	center([diameter, diameter, 0]){
-		cube([diameter,	 radius, height]);
+		cube([radius, diameter, height]);
 	}
 }
 CylinderDispenser_Dispenser_Flue_FlatBack(diameter, height);

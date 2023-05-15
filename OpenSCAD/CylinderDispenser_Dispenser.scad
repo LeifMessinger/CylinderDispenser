@@ -1,18 +1,32 @@
+use <CylinderDispenser_Dispenser_Flue.scad>
+use <CylinderDispenser_Dispenser_Hearth.scad>
+
+/* [Object] */
+objectDiameter = 24.0;
+objectRadius = objectDiameter/2.0;
+objectHeight = 15.0;
+
+/* [Dispenser] */
+wallThiccness = 2.0;
+wallHeight = 80.0;
+flatBack = true;
+//How far the hearth platform should stick out.
+hearthLength = 50.0;
+hearthDepth = 5.0;
+
 module CylinderDispenser_Dispenser(objectDiameter, objectHeight,
 	wallThiccness, wallHeight,
-	hearthDepth, outerHearthLength, printEjector, flatBack){
+	hearthLength, hearthDepth, flatBack){
 
 	//Intermediary Dimensions
-	flueRadius = (objectDiameter / 2.0) + wallThiccness;
+	flueDiameter = objectDiameter + (wallThiccness * 2.0);
 
 	union(){
-		translate([0, 0, hearthDepth]){
-			difference(){
-				color("lightgreen", 1) Flue(objectDiameter, wallThiccness, wallHeight, flatBack);
-				Fireplace(objectDiameter, flueRadius, objectHeight);
-			}
-		}
-		Hearth(hearthDepth, objectDiameter, flueRadius, outerHearthLength, printEjector,  backLength, printEjector, ejectorRailWall, ejectorHoleHeight);
-		FlatBack(flueDiameter, height);
+		CylinderDispenser_Dispenser_Flue(objectDiameter, objectHeight, wallThiccness, wallHeight, flatBack);
+		CylinderDispenser_Dispenser_Hearth([hearthLength, objectDiameter, hearthDepth], flueDiameter);
 	}
 }
+
+CylinderDispenser_Dispenser(objectDiameter, objectHeight,
+	wallThiccness, wallHeight,
+	hearthLength, hearthDepth, flatBack);
