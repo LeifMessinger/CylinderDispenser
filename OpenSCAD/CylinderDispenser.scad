@@ -128,7 +128,7 @@ module CylinderDispenser(objectDiameter, objectHeight,
 				#CylinderDispenser_Ejector_Rod(ejectorHoleDimensions);
 			}
 		}
-		translate([0, 50.0, 0.0]) CylinderDispenser_Ejector(ejectorRodDimensions, ejectorPaddleDimensions);
+		translate([0, flueRadius + (ejectorPaddleDimensions.y / 2.0) + 10.0, 0.0]) rotate($preview? [0, 0, 0] : [0, -90, 0])CylinderDispenser_Ejector(ejectorRodDimensions, ejectorPaddleDimensions);
 	}
 }
 
