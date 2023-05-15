@@ -26,20 +26,27 @@ railWall = true;
 //Print the cylinder dispenser without an ejector hole. Maybe for boring your own.
 withoutHole = false;
 
+/* [Printer] */
+
+//Some things grow and shrink due to this. The rod will shrink, the walls will grow, etc.
+printerInaccuracy = .5; //mm. Global
+
 /* [Cylinder] */
 //properties of the cylinders you want to store
 
 //Diameter of the cylinders you want to store. Making this a little bigger won't hurt.
-objectDiameter = 24.0; //mm
+objectDiameterReal = 24.0; //mm
+objectDiameter = objectDiameterReal + printerInaccuracy;
 
 objectRadius = objectDiameter / 2.0;
 
 //Height of the cylinders you want to store. Making this a little bigger won't hurt either.
-objectHeight = 8.0; //mm
+objectHeightReal = 8.0; //mm
+objectHeight = objectHeightReal + printerInaccuracy;
 
 /* [Chimney] */
 
-//Thiccness of the walls.
+//Thiccness of the walls. PrinterInaccuracy doesn't get applied to this, so make this big enough for your slicer to work with.
 wallThiccness = 2.0; //mm
 
 flueDiameter = wallThiccness*2.0 + objectDiameter;
@@ -55,7 +62,7 @@ wallHeight = 80.0; //mm
 hearthDepth = 2.0; //mm
 
 //Length of the platform just outside the opening.
-hearthLength = 25.0; //mm
+hearthLength = 50.0; //mm
 
 /* [Ejector] [Rod] */
 
@@ -77,7 +84,7 @@ ejectorPaddleDimensions = [5.0, 20.0, 20.0]; //mm
 /* [Rail] */
 railFloorDimensions = [ejectorSpringLength + flueDiameter, flueDiameter, hearthDepth];
 
-ejectorHoleDimensions = [(2.0 * ejectorRodDimensions.x) - flueDiameter, ejectorRodDimensions.y, ejectorRodDimensions.z];
+ejectorHoleDimensions = [(2.0 * ejectorRodDimensions.x) - flueDiameter, ejectorRodDimensions.y + printerInaccuracy, ejectorRodDimensions.z + printerInaccuracy];
 
 /* [Rail] [Wall] */
 
@@ -85,11 +92,6 @@ ejectorHoleDimensions = [(2.0 * ejectorRodDimensions.x) - flueDiameter, ejectorR
 railWallHeight = 5.0;
 railWallThiccness = 10.0; //mm
 railWallDimensions = [railFloorDimensions.x, railWallThiccness, railWallHeight];
-
-/* [Printer] */
-
-//Some things grow and shrink due to this. The rod will shrink, the walls will grow, etc.
-printerInaccuracy = .5; //mm. Global
 
 /* [OpenSCAD] [Quality] */
 

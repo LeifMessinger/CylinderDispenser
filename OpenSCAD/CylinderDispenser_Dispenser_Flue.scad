@@ -14,7 +14,7 @@ height = 80.0;
 flatBack = true;
 
 /* [OpenSCAD] [Quality] */
-$fn = 20;
+$fn = 50;
 
 module CylinderDispenser_Dispenser_Flue(objectDiameter, objectHeight, wallThiccness, height, flatBack){
 	flueDiameter = objectDiameter + (2.0 * wallThiccness);
