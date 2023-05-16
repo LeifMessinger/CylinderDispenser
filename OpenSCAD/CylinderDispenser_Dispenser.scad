@@ -8,6 +8,7 @@ objectHeight = 15.0;
 
 /* [Dispenser] */
 wallThiccness = 2.0;
+//The holder wall height above the hearth
 wallHeight = 80.0;
 flatBack = true;
 //How far the hearth platform should stick out.
@@ -22,7 +23,7 @@ module CylinderDispenser_Dispenser(objectDiameter, objectHeight,
 	flueDiameter = objectDiameter + (wallThiccness * 2.0);
 
 	union(){
-		CylinderDispenser_Dispenser_Flue(objectDiameter, objectHeight, wallThiccness, wallHeight, flatBack);
+		CylinderDispenser_Dispenser_Flue(objectDiameter, objectHeight, wallThiccness, wallHeight + hearthDepth, flatBack);
 		CylinderDispenser_Dispenser_Hearth([hearthLength, objectDiameter, hearthDepth], flueDiameter);
 	}
 }
