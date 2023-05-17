@@ -1,19 +1,17 @@
 use <CylinderDispenser_Dispenser.scad>
 use <CylinderDispenser_Ejector.scad>
-use <CylinderDispenser_Rail.scad>
+use <CylinderDispenser_Dispenser_Virgin_Rail.scad>
 
-use <CylinderDispenser_Dispenser_Flue_Chimney.scad>
+use <CylinderDispenser_Dispenser_Virgin_Flue_Chimney.scad>
 use <CylinderDispenser_Ejector_Rod.scad>
 
 use <Library/center.scad>
 
-
 /* [What to print] */
 cylinderDispenser = true;
-
 ejectorRod = true;
-
 ejectorRail = true;
+gridfinity = true;
 
 /* [Settings] [Cylinder Dispenser] */
 
@@ -24,9 +22,8 @@ flatBack = true;
 
 //Raise some rail walls to guide the ejector more
 railWall = true;
-
 //Print the cylinder dispenser without an ejector hole. Maybe for boring your own.
-withoutHole = false;
+ejectorHole = true;
 
 /* [Printer] */
 
@@ -50,11 +47,8 @@ objectHeight = objectHeightReal + printerInaccuracy;
 
 //Thiccness of the walls. PrinterInaccuracy doesn't get applied to this, so make this big enough for your slicer to work with.
 wallThiccness = 2.0; //mm
-
 flueDiameter = wallThiccness*2.0 + objectDiameter;
-
 flueRadius = wallThiccness + objectRadius;
-
 //The holder's wall height above the hearth.
 wallHeight = 80.0; //mm
 
@@ -62,7 +56,6 @@ wallHeight = 80.0; //mm
 
 //Thiccness below the opening. This adds to the total height.
 hearthDepth = 2.0; //mm
-
 //Length of the platform just outside the opening.
 hearthLength = 50.0; //mm
 
@@ -74,14 +67,10 @@ ejectorPaddleDimensions = [5.0, 20.0, 20.0]; //mm
 
 //Length of the spring when fully relaxed. Ideally, get a spring that is longer than the diameter of your cylinders plus twice the wall thiccness. The larger the spring, the farther you can force out the cylinder.
 ejectorSpringLength = 33; //mm
-
 //The width and height of the ejector rod. The length is determined by the 
 ejectorRodCrossSection = [5.0, 5.0];
-
 ejectorRodDimensions = [ejectorSpringLength + wallThiccness + ejectorPaddleDimensions.x, ejectorRodCrossSection.x, ejectorRodCrossSection.y];
-
 ejectorHoleDimensions = [ejectorRodDimensions.x + ejectorSpringLength, ejectorRodDimensions.y + printerInaccuracy, ejectorRodDimensions.z + printerInaccuracy];
-
 //How sunk into the base the ejector rod is. The rod and hole height are compensated so that the hole height is measured from the base up.
 ejectorHoleRecess = 1.0; //mm
 
@@ -100,7 +89,7 @@ railWallDimensions = [railFloorDimensions.x, railWallThiccness, railWallHeight];
 //Number of segments for the cylinders. This probably doesn't work. Just hardcode the values into the other files for the cylinders you care about.
 $fn = 50;
 
-module CylinderDispenser(cylinderDispenser,ejectorRod, ejectorRail, withoutHole,objectDiameter, objectHeight,
+module CylinderDispenser(cylinderDispenser,ejectorRod, ejectorRail, ejectorHole,objectDiameter, objectHeight,
 	wallThiccness, wallHeight,
 	hearthLength, hearthDepth, flatBack,
 	railFloorDimensions, railWall, railWallDimensions,
@@ -115,24 +104,10 @@ module CylinderDispenser(cylinderDispenser,ejectorRod, ejectorRail, withoutHole,
 		if(cylinderDispenser)
 		difference(){
 			union(){
-				CylinderDispenser_Dispenser(objectDiameter, objectHeight,
-			wallThiccness, wallHeight,
-			hearthLength, hearthDepth, flatBack);
-				if(ejectorRail)
-				difference(){
-					translate([-railFloorDimensions.x, 0, 0]){
-							CylinderDispenser_Rail(railFloorDimensions, railWall, railWallDimensions);
-					}
-					translate([0, 0, hearthDepth]){
-						CylinderDispenser_Dispenser_Flue_Chimney(flueDiameter, wallHeight);
-					}
-				}
-			}
-			if(!withoutHole)
-			translate([-objectRadius + ejectorSpringLength, 0, railFloorDimensions.z]){
-				mirror([1, 0, 0]){
-					#CylinderDispenser_Ejector_Rod(ejectorHoleDimensions);
-				}
+				CylinderDispenser_Dispenser(ejectorRail, gridfinity, railWall, flatBack, ejectorHole,
+	objectDiameter, objectHeight,
+	wallThiccness, wallHeight,
+	hearthLength, hearthDepth, railFloorDimensions, railWallDimensions, ejectorSpringLength, ejectorHoleDimensions);
 			}
 		}
 		if(ejectorRod)
@@ -143,7 +118,7 @@ module CylinderDispenser(cylinderDispenser,ejectorRod, ejectorRail, withoutHole,
 	}
 }
 
-CylinderDispenser(cylinderDispenser,ejectorRod, ejectorRail, withoutHole,
+CylinderDispenser(cylinderDispenser,ejectorRod, ejectorRail, ejectorHole,
 	objectDiameter, objectHeight,
 	wallThiccness, wallHeight,
 	hearthLength, hearthDepth, flatBack,

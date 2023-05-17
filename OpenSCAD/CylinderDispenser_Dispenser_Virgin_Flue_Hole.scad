@@ -5,9 +5,9 @@ height = 80;
 $fn = 50;
 
 //Hollow bit down the center of the chimney. Negative space.
-module CylinderDispenser_Dispenser_Flue_Hole(objectDiameter, height) {
+module CylinderDispenser_Dispenser_Virgin_Flue_Hole(objectDiameter, height) {
 	cylinder(d=objectDiameter, h=height);
 }
 
 color("red", .5)
-CylinderDispenser_Dispenser_Flue_Hole(objectDiameter, height);
+CylinderDispenser_Dispenser_Virgin_Flue_Hole(objectDiameter, height);

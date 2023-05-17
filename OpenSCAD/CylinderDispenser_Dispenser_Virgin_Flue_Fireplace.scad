@@ -4,11 +4,11 @@ use <Library/center.scad>
 dimensions = [24.0, 28.0, 15.0];
 
 //Opening at the bottom. Negative space
-module CylinderDispenser_Dispenser_Flue_Fireplace(dimensions) {
+module CylinderDispenser_Dispenser_Virgin_Flue_Fireplace(dimensions) {
 	center([0, dimensions.y, 0]){
 		cube(dimensions);
 	}
 }
 
 color("red", .5)
-CylinderDispenser_Dispenser_Flue_Fireplace(dimensions);
+CylinderDispenser_Dispenser_Virgin_Flue_Fireplace(dimensions);
