@@ -90,6 +90,8 @@ railWallDimensions = [railFloorDimensions.x, railWallThiccness, railWallHeight];
 gridfinitySizeSettings = 0; // [0: Auto-estimate the size, 1: User-override size]
 
 gridfinityXYDimensionsOverride = [42.0, 42.0];
+//Shift the model forwards and backwards. Might need this if your rail is longer than your hearth or vice versa.
+gridfinityXOffset = 0.0;
 
 gridfinityXYDimensions = (gridfinitySizeSettings == 1)? gridfinityXYDimensionsOverride : [railFloorDimensions.x + hearthLength + objectRadius,flueDiameter];
 
@@ -120,7 +122,7 @@ module CylinderDispenser(cylinderDispenser,ejectorRod, ejectorRail, gridfinity, 
 		if(cylinderDispenser){
 			if(gridfinity){
 				gridfinityify(gridfinityXYDimensions, gridfinityHoleStyle, gridfinityRoundUp){
-				CylinderDispenser_Dispenser(ejectorRail, gridfinity, railWall, flatBack, ejectorHole,
+				translate([gridfinityXOffset, 0, 0])CylinderDispenser_Dispenser(ejectorRail, gridfinity, railWall, flatBack, ejectorHole,
 	objectDiameter, objectHeight,
 	wallThiccness, wallHeight,
 	hearthLength, hearthDepth, railFloorDimensions, railWallDimensions, ejectorSpringLength, ejectorHoleDimensions);
