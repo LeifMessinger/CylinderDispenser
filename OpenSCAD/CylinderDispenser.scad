@@ -6,6 +6,7 @@ use <CylinderDispenser_Dispenser_Virgin_Flue_Chimney.scad>
 use <CylinderDispenser_Ejector_Rod.scad>
 
 use <Library/center.scad>
+use <Library/gridfinityify.scad>	//It includes its dependencies too
 
 /* [What to print] */
 cylinderDispenser = true;
@@ -84,26 +85,47 @@ railWallHeight = 5.0;
 railWallThiccness = 10.0; //mm
 railWallDimensions = [railFloorDimensions.x, railWallThiccness, railWallHeight];
 
+/* [Gridfinity] */
+
+gridfinitySizeSettings = 0; // [0: Auto-estimate the size, 1: User-override size]
+
+gridfinityXYDimensionsOverride = [42.0, 42.0];
+
+gridfinityXYDimensions = (gridfinitySizeSettings == 1)? gridfinityXYDimensionsOverride : [railFloorDimensions.x + hearthLength + objectRadius,flueDiameter];
+
+//Hole style. The slit is there to make printing the overhang easier for the printer.
+gridfinityHoleStyle = 1; // [0:No holes,1:Magnet holes only, 2:Magnet and screw holes with no printable slit, 3:Magnet and screw holes with printable slit]
+
+//Round up the size of the gridfinity base to the next block
+gridfinityRoundUp = true;
+
 /* [OpenSCAD] [Quality] */
 
 //Number of segments for the cylinders. This probably doesn't work. Just hardcode the values into the other files for the cylinders you care about.
 $fn = 50;
 
-module CylinderDispenser(cylinderDispenser,ejectorRod, ejectorRail, ejectorHole,objectDiameter, objectHeight,
+module CylinderDispenser(cylinderDispenser,ejectorRod, ejectorRail, gridfinity, ejectorHole,objectDiameter, objectHeight,
 	wallThiccness, wallHeight,
 	hearthLength, hearthDepth, flatBack,
 	railFloorDimensions, railWall, railWallDimensions,
 	ejectorRodDimensions, ejectorPaddleDimensions,
-	ejectorHoleDimensions, ejectorSpringLength){
+	ejectorHoleDimensions, ejectorSpringLength,
+	gridfinitySizeSettings, gridfinityXYDimensionsOverride, gridfinityXYDimensions, gridfinityHoleStyle,gridfinityRoundUp){
 		
 	flueDiameter = objectDiameter + (2.0 * wallThiccness);
 	objectRadius = objectDiameter / 2.0;
 	flueRadius = objectRadius + wallThiccness;
 		
 	union(){
-		if(cylinderDispenser)
-		difference(){
-			union(){
+		if(cylinderDispenser){
+			if(gridfinity){
+				gridfinityify(gridfinityXYDimensions, gridfinityHoleStyle, gridfinityRoundUp){
+				CylinderDispenser_Dispenser(ejectorRail, gridfinity, railWall, flatBack, ejectorHole,
+	objectDiameter, objectHeight,
+	wallThiccness, wallHeight,
+	hearthLength, hearthDepth, railFloorDimensions, railWallDimensions, ejectorSpringLength, ejectorHoleDimensions);
+				}
+			}else{
 				CylinderDispenser_Dispenser(ejectorRail, gridfinity, railWall, flatBack, ejectorHole,
 	objectDiameter, objectHeight,
 	wallThiccness, wallHeight,
@@ -117,10 +139,9 @@ module CylinderDispenser(cylinderDispenser,ejectorRod, ejectorRail, ejectorHole,
 		CylinderDispenser_Ejector(ejectorRodDimensions, ejectorPaddleDimensions);
 	}
 }
-
-CylinderDispenser(cylinderDispenser,ejectorRod, ejectorRail, ejectorHole,
-	objectDiameter, objectHeight,
-	wallThiccness, wallHeight,
-	hearthLength, hearthDepth, flatBack,
-	railFloorDimensions, railWall, railWallDimensions,
-	ejectorRodDimensions, ejectorPaddleDimensions, ejectorHoleDimensions, ejectorSpringLength);
+CylinderDispenser(cylinderDispenser,ejectorRod, ejectorRail, gridfinity, ejectorHole,
+		objectDiameter, objectHeight,
+		wallThiccness, wallHeight,
+		hearthLength, hearthDepth, flatBack,
+		railFloorDimensions, railWall, railWallDimensions,
+		ejectorRodDimensions, ejectorPaddleDimensions, ejectorHoleDimensions, ejectorSpringLength, gridfinitySizeSettings, gridfinityXYDimensionsOverride, gridfinityXYDimensions, gridfinityHoleStyle,gridfinityRoundUp);
