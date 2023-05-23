@@ -36,12 +36,12 @@ printerInaccuracy = .5; //mm. Global
 
 //Diameter of the cylinders you want to store. Making this a little bigger won't hurt.
 objectDiameterReal = 24.0; //mm
-objectDiameter = objectDiameterReal + printerInaccuracy;
+objectDiameter = objectDiameterReal + (printerInaccuracy * 2.0);
 
 objectRadius = objectDiameter / 2.0;
 
 //Height of the cylinders you want to store. Making this a little bigger won't hurt either.
-objectHeightReal = 8.0; //mm
+objectHeightReal = 10.0; //mm
 objectHeight = objectHeightReal + printerInaccuracy;
 
 /* [Chimney] */
@@ -71,7 +71,7 @@ ejectorSpringLength = 33; //mm
 //The width and height of the ejector rod. The length is determined by the 
 ejectorRodCrossSection = [5.0, 5.0];
 ejectorRodDimensions = [ejectorSpringLength + wallThiccness + ejectorPaddleDimensions.x, ejectorRodCrossSection.x, ejectorRodCrossSection.y];
-ejectorHoleDimensions = [ejectorRodDimensions.x + ejectorSpringLength, ejectorRodDimensions.y + printerInaccuracy, ejectorRodDimensions.z + printerInaccuracy];
+ejectorHoleDimensions = [ejectorRodDimensions.x + ejectorSpringLength, ejectorRodDimensions.y + (printerInaccuracy * 2.0) + 1.0, ejectorRodDimensions.z + (printerInaccuracy * 2.0) + 1.0];
 //How sunk into the base the ejector rod is. The rod and hole height are compensated so that the hole height is measured from the base up.
 ejectorHoleRecess = 1.0; //mm
 

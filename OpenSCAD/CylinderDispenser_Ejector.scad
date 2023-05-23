@@ -2,7 +2,7 @@ use <CylinderDispenser_Ejector_Rod.scad>
 use <CylinderDispenser_Ejector_Paddle.scad>
 
 //Length, width, height of the rod. Rod length includes the paddle length.
-rodDimensions = [30+2+30, 5, 5];
+rodDimensions = [46, 4.0, 4.5];
 
 //Length, width, height of the paddle. Length is the thiccness of the paddle.
 paddleDimensions = [5, 15, 15];
