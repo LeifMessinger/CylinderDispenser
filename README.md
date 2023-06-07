@@ -1,6 +1,8 @@
 # CylinderDispenser
 Customizable Cylinder Dispenser written in OpenSCAD
 
+Thangs link: https://thangs.com/mythangs/file/873360
+
 ## How to get started
 Run the `downloadGridfinityRebuilt.sh` script in a terminal that has git and bash.
 
